@@ -1,0 +1,19 @@
+#ng generate component [component-name]
+#ng generate service [service-name]
+#ng generate class [class-name]
+
+#prime ng 
+#npm install primeng --save
+#npm install primeicons --save
+#npm install ngx-spinner --save
+#npm install quill --save   -> this is required for editor, third pary dependency
+
+#CK Editor
+#npm install --save @ckeditor/ckeditor5-angular
+#npm install --save @ckeditor/ckeditor5-build-classic
+
+#datatable edit
+#npm install --save ng2-smart-table
+#npm install --save ng2-completer
+
+

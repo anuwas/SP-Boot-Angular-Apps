@@ -1,0 +1,208 @@
+        <section class="scrollable wrapper">
+          <div class="row">
+          <div class="col-md-12">
+            <section class="panel">
+                <header class="panel-heading">
+                  All Schedulers
+                </header>
+                <div class="row text-sm wrapper">
+                  <div class="col-sm-9 m-b-xs">
+                                  
+                  </div>
+                  
+                  <div class="col-sm-3">
+                    <div class="input-group">
+                      <!-- <input type="text" class="input-sm form-control" placeholder="Search">
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-white" type="button">Go!</button>
+                      </span> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-striped b-t text-sm">
+                    <thead>
+                      <tr>
+                        <!-- <th width="20"><input type="checkbox"></th> 
+                        <th class="th-sortable" data-toggle="class">ID
+                           <span class="th-sort">
+                            <i class="fa fa-sort-down text"></i>
+                            <i class="fa fa-sort-up text-active"></i>
+                            <i class="fa fa-sort"></i>
+                          </span>
+                        </th>-->
+                        <th>Report Name</th>
+                        <th>File Name</th>
+                        <th>Sheet Name</th>
+                        <th>Status</th>
+                        <th width="200">
+                          <span class="label pull-right">
+                      <a href="#reportquerymodal" (click)="resetModalForm()" data-toggle="modal" class="btn btn-xs btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Add</a>&nbsp;<a href="javascript:void(0)" class="btn btn-xs btn-success" (click)="reloadReportQueryMailConf()"><i class="fa fa-refresh fa-lg" aria-hidden="true"></i></a>
+                    </span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let itemObj of allReportScheduleList | paginate: config" [ngClass]="getColorClass(itemObj.activeInactive)">
+                        <!-- <td><input type="checkbox" name="post[]" value="2"></td> -->
+                        <!-- <td>{{itemObj.reportQueryId}}</td> -->
+                        <td>{{itemObj.reportName}}</td>
+                        <td>{{itemObj.reportFilename}}_v(x).xlsx</td>
+                        <td>{{itemObj.reportSheetName}}</td>
+                        <td>
+                          <div *ngIf="itemObj.activeInactive=='A'; then ActiveTemplate else InActiveTemplate"></div>
+                              <ng-template #ActiveTemplate>Running</ng-template>
+                              <ng-template #InActiveTemplate>Inactive</ng-template>
+                        </td>
+                        <td>
+                          <!-- <a href="#" class="active" data-toggle="class">
+                            <i class="fa fa-check text-success text-active"></i>
+                            <i class="fa fa-times text-danger text"></i></a>&nbsp; -->
+                          <a href="javascript:void(0)">
+                            <i (click)="playSchedulerReport(itemObj.reportQueryId)" class="fa fa-fighter-jet fa-lg" aria-hidden="true"></i></a>&nbsp;
+                          <a href="javascript:void(0)">
+                            <i (click)="reportQueryActiveInactiveUpdate(itemObj.reportQueryId,'A')" class="fa fa-play fa-lg" aria-hidden="true"></i></a>&nbsp;
+                          <a href="javascript:void(0)">
+                            <i (click)="reportQueryActiveInactiveUpdate(itemObj.reportQueryId,'I')" class="fa fa-stop fa-lg" aria-hidden="true"></i></a>&nbsp;
+                          <a href="#schedulermodal" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                            <i class="fa fa-cog fa-lg" aria-hidden="true" (click)="viewScheduledListForReport(itemObj.reportQueryId)"></i></a>&nbsp;
+                          <a href="#schedulermodal" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                            <i class="fa fa-bars fa-lg" aria-hidden="true" (click)="viewScheduledListForReport(itemObj.reportQueryId)"></i></a>&nbsp;
+                          <a href="#reportquerymodal" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                            <i class="fa fa-edit fa-lg" (click)="viewSchedulerReport(itemObj.reportQueryId)"></i></a>&nbsp; 
+                          <a href="javascript:void(0)">
+                            <i class="fa fa-trash-o fa-lg" (click)="removeSchedulerReport(itemObj.reportQueryId)"></i></a>
+                        </td>
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                </div>
+                <footer class="panel-footer">
+                  <div class="row">
+                    <div class="col-sm-4 hidden-xs">
+                      <!-- <select class="input-sm form-control input-s-sm inline">
+                        <option value="1">Delete selected</option>
+                        <option value="3">Export</option>
+                      </select>
+                      <button class="btn btn-sm btn-white">Apply</button> -->                  
+                    </div>
+                    <div class="col-sm-4 text-center">
+                      <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                    </div>
+                    <div class="col-sm-4 text-right text-center-xs">                
+                      <!-- <ul class="pagination pagination-sm m-t-none m-b-none">
+                        <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                      </ul> -->
+                      <div class="has-text-centered">
+    <pagination-controls (pageChange)="getPage($event)" ></pagination-controls>
+</div> 
+                    </div>
+                  </div>
+                </footer>
+              </section>
+          </div>
+          </div>          
+        </section>
+        <form class="form-inline" role="form" [formGroup]="schedulReportForm" id="schedulReportForm" (ngSubmit)="saveSchedulReportForm()">
+          <div class="modal fade" id="reportquerymodal" data-backdrop="static">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Add New Schedule Report</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                  <input type="hidden" class="form-control"  formControlName="report_query_id">
+                      <div class="col-sm-12">
+                          <label for="exampleSelect1">Report Name</label>   
+                          <input type="text" name="report_name" formControlName="report_name" class="form-control" placeholder="Report Name " required>
+                      </div>
+                      <div class="col-sm-6" >
+                        <div class="form-group">
+                          <label for="exampleSelect1">Report Filename</label>   
+                          <input type="text" name="report_filename" formControlName="report_filename" class="form-control" placeholder="Report Filename" required>
+                          
+                        </div>
+                      </div>
+                      
+                     
+                        <div class="form-group" style="margin-left: 50px;">
+                          <label for="exampleSelect1">Sheet Name</label>   
+                          <input type="text" name="sheet_name" formControlName="sheet_name" class="form-control" placeholder="Sheet Name " required>
+                          
+                        </div>
+                      <div class="col-sm-12">
+                          <label for="exampleSelect1">Report Description</label> 
+                          <textarea name="report_description" formControlName="report_description" class="form-control" placeholder="Report Description "></textarea> 
+                      </div>
+                      <div class="col-sm-12">
+                          <label for="exampleSelect1">Mail TO</label> 
+                          <textarea name="mail_to" formControlName="mail_to" class="form-control" placeholder="Mail TO"></textarea> 
+                      </div>
+                      <div class="col-sm-12">
+                          <label for="exampleSelect1">Mail CC</label> 
+                          <textarea name="mail_cc" formControlName="mail_cc" class="form-control" placeholder="Mail CC "></textarea> 
+                      </div>
+                      <div class="col-sm-12">
+                          <label for="exampleSelect1">Mail Subject</label>   
+                          <input type="text" name="mail_subject" formControlName="mail_subject" class="form-control" placeholder="Mail Subject " required>
+                      </div>
+                      <div class="col-sm-12">
+                          <label for="exampleSelect1">Mail Body</label> 
+                          <!-- <textarea name="mail_body"  class="form-control" placeholder="Mail Body "></textarea>  -->
+                          <!-- <textarea [froalaEditor] name="mail_body"  class="form-control" placeholder="Mail Body "></textarea> -->
+                           <!-- <ckeditor [editor]="Editor" name="mail_body" formControlName="mail_body"></ckeditor>  -->
+                           
+                          <!--<app-ngx-editor [spellcheck]="true"></app-ngx-editor> -->
+                          <p-editor formControlName="mail_body"></p-editor>
+
+                      </div>
+                      <div class="col-sm-12">
+                          <label for="exampleSelect1">Query</label> 
+                          <textarea name="report_query" formControlName="report_query" class="form-control" placeholder="Report Query"></textarea> 
+                      </div>
+                
+              </div>
+              </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-info" data-loading-text="Updating..." id="reportQuerySubmitButton">Save changes</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div>
+          </form>
+          <form class="form-inline" role="form" [formGroup]="schedulReportForm" id="schedulReportForm" (ngSubmit)="saveSchedulReportForm()">
+          <div class="modal fade" id="schedulermodal" data-backdrop="static">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">View Scheduling</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                  
+                <ng2-smart-table [settings]="schedulergridsetting" [source]="allReportScheduleSettingsDataList"></ng2-smart-table>
+              </div>
+              </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div>
+          </form>
+          <ngx-spinner></ngx-spinner>

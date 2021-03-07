@@ -1,0 +1,106 @@
+        <section class="scrollable wrapper">
+          <div class="row">
+          <div class="col-md-12">
+            <section class="panel">
+                <header class="panel-heading">
+                  All Jobs
+                </header>
+                
+                <form [formGroup]="jobSearchForm" id="searchItem" (ngSubmit)="jobSearchFormSubmit()"> 
+                <div class="row text-sm wrapper">
+                   <div class="col-sm-3 m-b-xs">
+                    <select class="input-sm form-control input-s-sm inline" name="search_job_name" formControlName="search_job_name">
+                      <option value="All"> -- All Job -- </option>
+                      <option *ngFor="let jobName of allJobName">{{jobName}}</option>
+                    </select>              
+                  </div>
+                  <div class="col-sm-2 m-b-xs">
+                    <select class="input-sm form-control input-s-sm inline" name="search_job_status" formControlName="search_job_status">
+                      <option value="All">  -- All Status -- </option>
+                      <option *ngFor="let jobStstus of allJobStstus">{{jobStstus}}</option>
+                    </select>              
+                  </div>
+                  <div class="col-sm-2 m-b-xs">
+                    <p-calendar dateFormat="yy-mm-dd" [showIcon]="true" inputId="icon" name="search_job_date" formControlName="search_job_date" ></p-calendar>        
+                  </div>
+                  <div class="col-sm-2 m-b-xs">
+                    <select class="input-sm form-control input-s-sm inline" name="search_job_duration_order" formControlName="search_job_duration_order">
+                      <option value="All">  Run Duration </option>
+                      <option value="ASC">ASC</option>
+                      <option value="DESC">DESC</option>
+                    </select>           
+                  </div>
+                  <div class="col-sm-3 m-b-xs">
+
+                    <div class="input-group">    
+                                    
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-white" type="submit" style="float:right">Search!</button>
+                      </span>
+                    </div>            
+                  </div>                  
+                  
+                
+                </div>
+                </form>
+                <div >
+              </div>
+              <!--  -->
+                <div class="table-responsive">
+                  <table class="table table-striped b-t text-sm">
+                    <thead>
+                      <tr>
+                        <th width="7%" class="th-sortable" data-toggle="class">ID</th>
+                        <th >Job Name</th>                        
+                        <th >Sub Job Name</th>
+                        <th >Status</th>
+                        <th>Log Date</th>
+                        <th>Run Duration</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let itemObj of allJobList | paginate: config">
+                        <td><a href="javascript:void(0)">{{ itemObj.logId }}</a></td>
+                        <td>{{itemObj.jobName}}</td>
+                        <td>{{itemObj.jobSubname}}</td>
+                        <td>{{itemObj.status}}</td>
+                        <td>{{itemObj.logDate | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
+                        <td>{{itemObj.runDuration}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <footer class="panel-footer">
+                  <div class="row">
+                    <div class="col-sm-4 hidden-xs">
+                      <!-- <select class="input-sm form-control input-s-sm inline">
+                        <option value="1">Delete selected</option>
+                        <option value="3">Export</option>
+                      </select>
+                      <button class="btn btn-sm btn-white">Apply</button>  -->                 
+                    </div>
+                    <div class="col-sm-4 text-center">
+                      <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of {{config.totalItems}} items</small>
+                    </div>
+                    <div class="col-sm-4 text-right text-center-xs">                
+                      <!-- <ul class="pagination pagination-sm m-t-none m-b-none">
+                        <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                      </ul> -->
+                      <div class="has-text-centered">
+    <pagination-controls (pageChange)="getPage($event)" ></pagination-controls>
+</div> 
+                    </div>
+                  </div>
+                </footer>
+              </section>
+          </div>
+          </div>          
+        </section>
+        <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "timer" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>

@@ -1,0 +1,115 @@
+  <section class="hbox stretch">
+    <!-- .aside -->
+    <aside class="bg-primary aside-sm" id="nav">
+      <section class="vbox">
+        <header class="dker nav-bar nav-bar-fixed-top">
+          <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
+            <i class="fa fa-bars"></i>
+          </a>
+          <a routerLink="/dashboard" routerLinkActive="active" class="nav-brand">
+            <img src="assets/images/logo.svg">
+          </a>
+          <a class="btn btn-link visible-xs" data-toggle="class:show" data-target=".nav-user">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </header>
+        <section>
+          <!-- user -->
+          <div class="bg-success nav-user hidden-xs pos-rlt">
+            <div class="nav-avatar pos-rlt">
+              <a href="#" class="thumb-sm avatar animated rollIn" data-toggle="dropdown">
+                <img src="assets/images/avatar.jpg" alt="" class="">
+                <span class="caret caret-white"></span>
+              </a>
+              <ul class="dropdown-menu m-t-sm animated fadeInLeft">
+                <span class="arrow top"></span>
+                <li>
+                  <a href="profile.html">Profile</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="signin.html">Logout</a>
+                </li>
+              </ul>
+              <div class="visible-xs m-t m-b">
+                <a href="#" class="h3">Anupam</a>
+                <p><i class="fa fa-map-marker"></i> Kolkata, India</p>
+              </div>
+            </div>
+            
+          </div>
+          <!-- / user -->
+          <!-- nav -->
+          <nav class="nav-primary hidden-xs">
+            <ul class="nav">
+              <li>
+                <a routerLink="/dashboard" routerLinkActive="active">
+                  <i class="fa fa-eye"></i>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+               <li>
+                <a routerLink="/alljobs" routerLinkActive="active">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  <span>DB Jobs</span>
+                </a>
+              </li> 
+               <li>
+                <a routerLink="/auto-report-scheduler-list" routerLinkActive="active">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                  <span>S Scheduler</span>
+                </a>
+              </li>
+              <!--
+              <li>
+                <a routerLink="/current-sprint" routerLinkActive="active">
+                  <i class="fa fa-tasks" aria-hidden="true"></i>
+                  <span>Current Sprint</span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/release-all-items" routerLinkActive="active">
+                  <i class="fa fa-cloud" aria-hidden="true"></i>
+                  <span>Releases</span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/all-scheduled-task" routerLinkActive="active">
+                  <i class="fa fa-bell" aria-hidden="true"></i>
+                  <span>Task Scheduler</span>
+                </a>
+              </li> -->
+              
+            </ul>
+          </nav>
+
+        </section>
+        <footer class="footer bg-gradient hidden-xs">
+          
+          <a href="#nav" data-toggle="class:nav-vertical" class="btn btn-sm btn-link m-l-n-sm">
+            <i class="fa fa-bars"></i>
+          </a>
+        </footer>
+      </section>
+    </aside>
+    <!-- /.aside -->
+    <!-- .vbox -->
+    <section id="content">
+      <section class="vbox">
+        <header class="header bg-white b-b">
+          <div style="float: left;margin-top: 15px;">Welcome </div>
+          <div style="float: right;margin-top: 15px;">
+            <!-- <a routerLink="/support-active-item" routerLinkActive="active" style="margin-right: 15px;" alt="Active Calls">
+                  <i class="fa fa-phone" aria-hidden="true" ></i>
+              </a>
+            <a routerLink="/view-item" routerLinkActive="active" style="margin-right: 15px;">
+                  <i class="fa fa-phone-square" aria-hidden="true"></i>
+            </a> -->
+          </div>
+        </header>
+        <router-outlet></router-outlet>
+      </section>
+      <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+    </section>
+    <!-- /.vbox -->
+  </section>
